@@ -215,3 +215,6 @@ cython_debug/
 requirements.txt
 .gitattributes
 Dockerfile
+media/
+board/migrations/
+sign/migrations/

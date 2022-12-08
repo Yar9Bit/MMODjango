@@ -1,0 +1,17 @@
+{% extends 'default.html' %}
+{% block content %}
+    <div><a href="{% url 'board' %}">Вернуться</a></div>
+    <div class="m-5">
+        <div>
+            Заголовок {{ ad_detail.title }}
+        </div>
+        <div>
+            {{ ad_detail.text }}
+        </div>
+        {% if object.attach %}
+            <div>
+                <img src="{{ object.attach.url }}" alt="" class="w-25 h-25">
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}
