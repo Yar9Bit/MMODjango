@@ -5,7 +5,7 @@
     <div>
         {% if user.id %}
         Вы вошли как: {{ user.username }}
-            <a href="../account/profile.html">Профиль</a>
+            <a href="{% url 'profile' %}">Профиль</a>
             <div>
                 <a href="{% url 'account_logout' %}">Выйти</a>
             </div>

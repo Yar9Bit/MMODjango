@@ -1,0 +1,55 @@
+{% extends 'default.html' %}
+{% block title %}Responds{% endblock %}
+{% block title_page %}Responds{% endblock %}
+{% block content %}
+    <form action="" method="get">
+        <div class="input-group px-5">
+            <label class="input-group-text" for="ad">Responds Filter</label>
+            <label for="filter"></label><select name="ad" class="form-select" id="filter">
+            <option value="0">Pick an Ad...</option>
+            {% for option in adverts %}
+                <option value="{{ option.pk }}" {% if ad == option.pk %}selected{% endif %}>{{ option.title }}</option>
+            {% endfor %}
+        </select>
+            <button class="btn btn-outline-primary" type="submit">Show</button>
+        </div>
+    </form>
+    {% for advert in advert_list %}
+        <div class="card mt-3 shadow">
+            <div class="card-header">{{ advert.title }}</div>
+            <ul class="list-group list-group-flush">
+                {% for resp in responses %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-9">
+                                <span class="text-muted mb-1">
+                                    {{ resp.author.username }}, {{ resp.create }}
+                                </span>
+                                <br>
+                                {{ resp.text|linebreaks }}
+                            </div>
+                            <div class="col-3 text-end mt-2 mb-2">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    {% if not resp.status %}
+                                        <form action="{% url 'resp_change' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="respId" value="{{ resp.pk }}">
+                                            <button class="btn btn-sm btn-success">Accept</button>
+                                        </form>
+                                    {% else %}
+                                        <button class="btn btn-sm btn-success disabled">Accepted</button>
+                                    {% endif %}
+                                    <form action="{% url 'resp_delete' %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="respId" value="{{ resp.pk }}">
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% endblock %}

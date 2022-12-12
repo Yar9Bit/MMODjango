@@ -27,6 +27,7 @@ urlpatterns = [
     path('mmo/', include('board.urls')),
     path('send/', send_otp),
     path('delete/', delete_otp),
+    path('sign/', include('sign.urls')),
 
 ]
 
