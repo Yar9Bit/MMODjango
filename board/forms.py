@@ -22,3 +22,13 @@ class AdForm(forms.ModelForm):
                 attrs={'class': 'form_control'}
             ),
         }
+
+
+class RespForm(forms.ModelForm):
+    """Отклик на объявление"""
+    class Meta:
+        model = Resp
+        fields = ('text', )
+        widgets = {
+            'text': forms.Textarea(attrs={'class': 'form-control'}),
+        }

@@ -3,15 +3,22 @@
     <div><a href="{% url 'board' %}">Вернуться</a></div>
     <div class="m-5">
         <div>
-            Заголовок {{ ad_detail.title }}
+            Заголовок {{ content.title }}
         </div>
         <div>
-            {{ ad_detail.text }}
+            {{ content.text }}
+        </div>
+        <div>
+            {{ content.pk }}
         </div>
         {% if object.attach %}
             <div>
                 <img src="{{ object.attach.url }}" alt="" class="w-25 h-25">
             </div>
+        {% endif %}
+        {% if request.user.is_authenticated and request.user.id != object.author.id %}
+            <h3>Добавить отклик</h3>
+            {% include 'board/resp_form.html' %}
         {% endif %}
     </div>
 {% endblock content %}

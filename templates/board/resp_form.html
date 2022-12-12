@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+{% block title %}{% endblock title %}
+{% block content %}
+
+    <form method="post" action="{% url 'resp_create' %}">
+        <div class="modal-body">
+            {% csrf_token %}
+            <input type="hidden" name="adId" value="{{ content.pk }}">
+            {{ form.as_p }}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline-primary" type="submit">Add</button>
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Do Not Add
+            </button>
+        </div>
+    </form>
+
+{% endblock content %}

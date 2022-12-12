@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+
 # Create your models here.
 
 
@@ -28,7 +29,7 @@ class Ad(models.Model):
         verbose_name = 'Объявление'
 
     def __str__(self):
-        return self.title
+        return f'{self.title}'
 
     def get_absolute_url(self):
         return reverse('ad_detail', args=[str(self.pk)])
@@ -45,4 +46,7 @@ class Resp(models.Model):
         verbose_name = 'Отклик'
 
     def __str__(self):
-        return self.text[:64]
+        return f'{self.text[:64]}' if len(self.text) > 64 else f'{self.text}'
+
+    def get_absolute_url(self):
+        return reverse('ad_detail', args=[str(self.post.pk)])
