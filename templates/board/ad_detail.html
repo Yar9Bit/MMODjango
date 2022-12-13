@@ -8,13 +8,14 @@
         <div>
             {{ content.text }}
         </div>
-        <div>
-            {{ content.pk }}
-        </div>
         {% if object.attach %}
             <div>
                 <img src="{{ object.attach.url }}" alt="" class="w-25 h-25">
             </div>
+        {% endif %}
+        {% if object.author.id == request.user.id %}
+            <button><a href="{% url 'ad_delete' object.pk %}">Удалить?</a></button>
+            <button><a href="{% url 'ad_edit' object.pk %}">Редактировать</a></button>
         {% endif %}
         {% if request.user.is_authenticated and request.user.id != object.author.id %}
             <h3>Добавить отклик</h3>

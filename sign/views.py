@@ -40,9 +40,6 @@ class RespList(LoginRequiredMixin, ListView):
 
 @login_required
 def resp_change_status(request):
-    """
-    Accepting Response (with update_fields to trigger signal
-    """
     if request.method == 'POST':
         response = Resp.objects.get(pk=request.POST.get('respId'))
         response.status = True

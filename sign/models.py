@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from allauth.account.forms import SignupForm
 from django.contrib.auth.models import models, User
@@ -19,13 +20,14 @@ class BasicSignupForm(SignupForm):
 
 
 class OneTimePassword(models.Model):
-    user = models.OneToOneField(User, models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     code = models.CharField(unique=True, max_length=128)
 
     def __str__(self):
         return f'OTP for {self.user}'
 
 
+@login_required
 def send_otp(request):
     code = secrets.token_urlsafe(16)
     send_mail(
@@ -38,6 +40,7 @@ def send_otp(request):
     return redirect('board')
 
 
+@login_required
 def delete_otp(request):
     OneTimePassword.objects.filter(user=request.user).delete()
     send_mail(
