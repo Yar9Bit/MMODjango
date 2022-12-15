@@ -1,37 +1,16 @@
-{% extends "account/base.html" %}
+{% extends "default.html" %}
 
-{% load i18n %}
-{% load account %}
-
-{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
-
-
+{% block title %}Confirm OTP{% endblock title %}
 {% block content %}
-    <h1>{% trans "Confirm E-mail Address" %}</h1>
-
-    {% if confirmation %}
-
-        {% user_display confirmation.email_address.user as user_display %}
-
-        <p>{% blocktrans with confirmation.email_address.email as email %}Пожалуйста подтвердите
-            <a href="mailto:{{ email }}">{{ email }}</a> этот e-mail для пользователя {{ user_display }}
-            .{% endblocktrans %}</p>
-
-        <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
-            {% csrf_token %}
-            <input type="text">
-            <button type="submit">{% trans 'Confirm' %}</button>
-        </form>
-
-    {% else %}
-
-        {% url 'account_email' as email_url %}
-
-        <p>{% blocktrans %}Срок действия этой ссылки для подтверждения по электронной почте истек или она
-            недействительна.
-            Пожалуйста <a href="{{ email_url }}">отправьте новый запрос подтверждения по электронной почте</a>.
-        {% endblocktrans %}</p>
-
-    {% endif %}
-
+    {% for i in otp %}
+        {{ i.user }}
+        {{ i.code }}
+    {% endfor %}
+    <form action="{% url 'user_staff' %}" method="post">
+    {% csrf_token %}
+        <label>
+            <input type="text" name="OTPCode">
+        </label>
+        <input type="submit">
+    </form>
 {% endblock %}

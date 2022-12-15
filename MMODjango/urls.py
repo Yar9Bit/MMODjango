@@ -18,15 +18,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from sign.urls import LoginView
-from sign.models import send_otp, delete_otp
-
+from sign.views import send_otp
 urlpatterns = [
     path('', LoginView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('mmo/', include('board.urls')),
-    path('send/', send_otp),
-    path('delete/', delete_otp),
+    path('send/', send_otp, name='send_otp'),
     path('sign/', include('sign.urls')),
 
 ]

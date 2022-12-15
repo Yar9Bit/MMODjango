@@ -7,4 +7,9 @@
             Просмотреть отклики
         </button>
     </a>
+    {% if not confirm %}
+        <a href="{% url 'otp' %}">
+            <button>Подтвердить аккаунт</button>
+        </a>
+    {% endif %}
 {% endblock %}
